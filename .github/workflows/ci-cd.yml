@@ -19,8 +19,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build and push the Docker image
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: andreesharygin/fastapi-app:${{ github.sha }}
+      - name: Build the Docker image
+        run: |
+          docker build . -t andreesharygin/fastapi-app:${{ github.sha }}
+
+      - name: Push the Docker image
+        run: |
+          docker push andreesharygin/fastapi-app:${{ github.sha }}
